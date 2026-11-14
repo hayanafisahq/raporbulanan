@@ -1,0 +1,472 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Laporan Les Privat</title>
+<meta id="vmeta" name="claude:viewport-fit-sides" content="cover">
+<link id="fontlink" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
+<style id="pagestyle">
+/* Layout: satu kolom laporan, kartu minggu berpasangan, tanggapan di atas kertas bergaris. */
+:root {
+  --bg: #F4F6FB;
+  --surface: #FFFFFF;
+  --ink: #18213A;
+  --muted: #5A6580;
+  --line: #DCE1EE;
+  --accent: #1F3FB8;
+  --accent-ink: #FFFFFF;
+  --danger: #A32A1B;
+  --mtk: #2756D6;
+  --mtk-bg: #E6ECFC;
+  --ing: #B02F78;
+  --ing-bg: #FAE6F1;
+  --ipa: #17794B;
+  --ipa-bg: #E1F4EA;
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1424;
+    --surface: #171D33;
+    --ink: #E8ECF8;
+    --muted: #9AA5C4;
+    --line: #2A3250;
+    --accent: #8CA3FF;
+    --accent-ink: #0F1424;
+    --danger: #FF9C8E;
+    --mtk: #8FA8FF;
+    --mtk-bg: #1D2850;
+    --ing: #F08CC2;
+    --ing-bg: #3A1A2E;
+    --ipa: #6FD3A0;
+    --ipa-bg: #143325;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1424;
+  --surface: #171D33;
+  --ink: #E8ECF8;
+  --muted: #9AA5C4;
+  --line: #2A3250;
+  --accent: #8CA3FF;
+  --accent-ink: #0F1424;
+  --danger: #FF9C8E;
+  --mtk: #8FA8FF;
+  --mtk-bg: #1D2850;
+  --ing: #F08CC2;
+  --ing-bg: #3A1A2E;
+  --ipa: #6FD3A0;
+  --ipa-bg: #143325;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--font-body); }
+.wrap {
+  max-width: 920px; margin: 0 auto;
+  padding-block: 32px 112px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.muted { color: var(--muted); }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.top > div { min-width: 0; flex: 1 1 280px; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-size: clamp(28px, 6vw, 44px); line-height: 1.1; margin: 8px 0 6px; text-wrap: balance; overflow-wrap: anywhere; }
+.sub { color: var(--muted); }
+.btn {
+  font: 600 14px var(--font-body); cursor: pointer; border-radius: 8px; padding: 9px 16px;
+  border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+}
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.sm { padding: 6px 10px; font-size: 13px; }
+.btn.danger { color: var(--danger); }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn:focus-visible, .in:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 15px; }
+.stat b { font-variant-numeric: tabular-nums; }
+section { margin-top: 44px; }
+h2 { font-family: var(--font-display); font-size: 24px; line-height: 1.2; margin: 0 0 4px; }
+.sec-note { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+.chip { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; line-height: 1.5; }
+.chip.mtk { background: var(--mtk-bg); color: var(--mtk); }
+.chip.ing { background: var(--ing-bg); color: var(--ing); }
+.chip.ipa { background: var(--ipa-bg); color: var(--ipa); }
+.weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 16px; }
+.week { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px 8px; min-width: 0; }
+.week-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.week-h h3 { font-family: var(--font-display); font-size: 18px; margin: 0; }
+.week-h span { font-size: 13px; color: var(--muted); }
+.sess { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px dashed var(--line); }
+.date { text-align: center; line-height: 1.1; }
+.date .n { font-family: var(--font-display); font-weight: 700; font-size: 28px; font-variant-numeric: tabular-nums; }
+.date .m { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.topic { margin: 5px 0 2px; font-weight: 500; overflow-wrap: anywhere; }
+.when { font-size: 13px; color: var(--muted); }
+.empty { padding: 12px 0; border-top: 1px dashed var(--line); color: var(--muted); font-size: 14px; }
+.sess-edit { display: grid; gap: 10px; padding: 14px 0; border-top: 1px dashed var(--line); }
+.g2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.lab { display: grid; gap: 4px; font-size: 12px; font-weight: 600; color: var(--muted); min-width: 0; }
+.in {
+  width: 100%; min-width: 0; font: 15px var(--font-body); color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px;
+}
+.add-row { padding: 10px 0 12px; border-top: 1px dashed var(--line); }
+.subjects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 16px; }
+.subj { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.subj.mtk { --c: var(--mtk); } .subj.ing { --c: var(--ing); } .subj.ipa { --c: var(--ipa); }
+.subj h3 { margin: 0 0 8px; font-size: 16px; }
+.abs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.abs li { display: grid; gap: 4px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.abs li:first-child { border-top: 0; padding-top: 0; }
+.atxt { overflow-wrap: anywhere; }
+.lvl { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.dots { display: inline-flex; gap: 3px; }
+.dots i { width: 14px; height: 6px; border-radius: 3px; background: var(--line); }
+.dots i.on { background: var(--c); }
+.ab-edit { display: grid; gap: 8px; }
+.ab-edit .row { display: flex; gap: 8px; }
+.ab-edit .row select { flex: 1 1 auto; }
+.fb { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 16px; }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.note h3 { font-family: var(--font-display); font-size: 18px; margin: 0 0 10px; }
+.paper, textarea.paper {
+  display: block; width: 100%; font: 16px/28px var(--font-body); color: var(--ink);
+  background-color: transparent;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 27px, var(--line) 27px, var(--line) 28px);
+  background-attachment: local;
+  border: 0; padding: 0; margin: 0; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+textarea.paper { min-height: 168px; resize: vertical; }
+textarea.paper:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.byline { margin-top: 10px; font-size: 14px; color: var(--muted); }
+.head-edit { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin-top: 4px; }
+.months { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }
+.tab {
+  display: grid; text-align: left; line-height: 1.25; cursor: pointer;
+  font: 600 14px var(--font-body); color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px;
+}
+.tab span { font-weight: 500; font-size: 12px; color: var(--muted); }
+.tab.on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.foot { margin-top: 40px; font-size: 13px; color: var(--muted); }
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: flex; gap: 12px; align-items: center; justify-content: flex-end; flex-wrap: wrap;
+  background: var(--surface); border-top: 1px solid var(--line);
+  padding-top: 12px;
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+}
+.bar:empty { display: none; }
+.bar .msg { margin-right: auto; font-size: 14px; color: var(--muted); }
+</style>
+<div id="root"></div>
+<script type="application/json" id="state">{"student":"Ailsa","grade":"Kelas 6 SD","tutor":"Fifi","updated":"2026-11-14","months":[{"label":"Oktober 2026","weeks":[{"sessions":[{"date":"2026-10-21","start":"19:40","end":"21:36","subject":"ipa","topic":"Sistem Peredaran Darah"},{"date":"2026-10-28","start":"18:00","end":"19:30","subject":"ing","topic":"Grammar- Simple Present Tense"}]},{"sessions":[{"date":"2026-10-28","start":"19:31","end":"21:00","subject":"ipa","topic":"Persiapan Tes BP-Latihan Soal TKA"},{"date":"2026-10-29","start":"18:00","end":"19:30","subject":"ing","topic":"Persiapan Tes BP-Latihan Bhs Inggris"}]},{"sessions":[{"date":"2026-11-06","start":"19:30","end":"21:00","subject":"ing","topic":"Pronunciation & Dialog"},{"date":"2026-11-13","start":"19:30","end":"21:00","subject":"ipa","topic":"Wujud Zat , sifat, dan Perubahannya"}]},{"sessions":[{"date":"2026-11-14","start":"19:15","end":"21:00","subject":"mtk","topic":"Rasio"},{"date":"2026-11-26","start":"16:00","end":"17:30","subject":"ing","topic":"Kosakata dan percakapan sehari-hari"}]}],"abilities":{"mtk":[{"text":"Mampu menyelesaikan Kasus Rasio","level":3},{"text":"Mampu menyederhanakan bentuk rasio","level":3},{"text":"Soal cerita masih perlu banyak latihan","level":2}],"ing":[{"text":"Mampu menyusun kalimat simple past dengan benar","level":3},{"text":"Mampu membaca dengan pronunciation","level":3}],"ipa":[{"text":"Mampu menjelaskan urutan organ sistem peredaran darah dan fungsinya","level":4},{"text":"Mampu menghafal istilah perubahan wujud, sifat, dan perubahan zat materi","level":3}]},"feedback":{"student":{"name":"Ailsa","text":"Belajarnya jadi lebih mudah dimengerti karena dijelaskan dengan asik. Lebih seru klo ketemu langsung."},"tutor":{"name":"Fifi","text":"Siswa aktif bertanya dan mengerjakan latihan dengan teliti. Bulan depan fokus ke soal cerita matematika dan menambah kosakata bahasa Inggris."}}}]}</script>
+<script id="app">
+(function () {
+  var SUBJ = [
+    { id: 'mtk', name: 'Matematika', cls: 'mtk' },
+    { id: 'ing', name: 'Bahasa Inggris', cls: 'ing' },
+    { id: 'ipa', name: 'IPA', cls: 'ipa' }
+  ];
+  var LEVELS = ['Perlu latihan', 'Cukup', 'Baik', 'Sangat baik'];
+  var RESET = ':root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}';
+
+  var root = document.getElementById('root');
+  var S = JSON.parse(document.getElementById('state').textContent);
+  var cur = S.months.length - 1, editing = false, canEdit = false, saving = false, art = null, msg = '';
+  function M() { return S.months[cur]; }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function subj(id) { return SUBJ.filter(function (j) { return j.id === id; })[0] || SUBJ[0]; }
+  function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+  function dateParts(iso) {
+    if (!iso) return null;
+    var d = new Date(iso + 'T00:00:00Z');
+    if (isNaN(d.getTime())) return null;
+    var f = function (o) { o.timeZone = 'UTC'; return new Intl.DateTimeFormat('id-ID', o).format(d); };
+    return { day: d.getUTCDate(), wd: cap(f({ weekday: 'long' })), mon: f({ month: 'short' }), monLong: f({ month: 'long' }), year: d.getUTCFullYear() };
+  }
+  function toMin(t) {
+    var m = /^(\d\d):(\d\d)$/.exec(t || '');
+    return m ? (+m[1]) * 60 + (+m[2]) : null;
+  }
+  function minutes(s) {
+    var a = toMin(s.start), b = toMin(s.end);
+    return (a != null && b != null && b > a) ? b - a : 0;
+  }
+  function fmtDur(m) {
+    var h = Math.floor(m / 60), r = m % 60;
+    if (h && r) return h + ' jam ' + r + ' menit';
+    if (h) return h + ' jam';
+    return r + ' menit';
+  }
+  function weekRange(w) {
+    var ps = w.sessions.map(function (s) { return s.date; }).filter(Boolean).sort();
+    if (!ps.length) return '';
+    var a = dateParts(ps[0]), b = dateParts(ps[ps.length - 1]);
+    if (!a || !b) return '';
+    if (ps[0] === ps[ps.length - 1]) return a.day + ' ' + a.mon;
+    if (a.mon === b.mon) return a.day + '–' + b.day + ' ' + a.mon;
+    return a.day + ' ' + a.mon + ' – ' + b.day + ' ' + b.mon;
+  }
+
+  function statsHTML() {
+    var all = [], tot = 0, per = { mtk: 0, ing: 0, ipa: 0 };
+    M().weeks.forEach(function (w) { w.sessions.forEach(function (s) { all.push(s); }); });
+    var grand = 0;
+    S.months.forEach(function (m) { m.weeks.forEach(function (w) { grand += w.sessions.length; }); });
+    all.forEach(function (s) { tot += minutes(s); if (per[s.subject] != null) per[s.subject]++; });
+    return '<div class="stat"><b>' + all.length + '</b> pertemuan bulan ini</div>' +
+      '<div class="stat"><b>' + fmtDur(tot) + '</b> total belajar</div>' +
+      SUBJ.map(function (j) {
+        return '<div class="stat"><span class="chip ' + j.cls + '">' + j.name + '</span> <b>' + per[j.id] + '</b>×</div>';
+      }).join('') +
+      (S.months.length > 1 ? '<div class="stat"><b>' + grand + '</b> pertemuan sejak bulan ke-1</div>' : '');
+  }
+
+  function nextLabel() {
+    var ds = [];
+    M().weeks.forEach(function (w) { w.sessions.forEach(function (s) { if (s.date) ds.push(s.date); }); });
+    ds.sort();
+    if (!ds.length) return 'Bulan ke-' + (S.months.length + 1);
+    var p = ds[ds.length - 1].split('-'), d = new Date(Date.UTC(+p[0], +p[1], 1));
+    return cap(new Intl.DateTimeFormat('id-ID', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d));
+  }
+
+  function navHTML() {
+    var n = S.months.length;
+    if (n < 2 && !editing) return '';
+    return '<nav class="months" aria-label="Pilih bulan">' + S.months.map(function (m, i) {
+      return '<button class="tab' + (i === cur ? ' on' : '') + '" data-act="goto" data-m="' + i + '"' + (i === cur ? ' aria-current="true"' : '') + '>Bulan ke-' + (i + 1) + '<span>' + esc(m.label) + '</span></button>';
+    }).join('') + (editing ? '<button class="btn ghost sm" data-act="add-month">+ Mulai bulan ke-' + (n + 1) + '</button>' : '') + '</nav>';
+  }
+
+  function headerHTML() {
+    if (editing) {
+      return '<header><div class="eyebrow">Mode edit</div>' +
+        '<div class="head-edit">' +
+        '<label class="lab">Nama siswa<input class="in" type="text" data-p="student" value="' + esc(S.student) + '"></label>' +
+        '<label class="lab">Kelas<input class="in" type="text" data-p="grade" value="' + esc(S.grade) + '"></label>' +
+        '<label class="lab">Pengajar<input class="in" type="text" data-p="tutor" value="' + esc(S.tutor) + '"></label>' +
+        '<label class="lab">Nama bulan (bulan ke-' + (cur + 1) + ')<input class="in" type="text" data-p="months.' + cur + '.label" value="' + esc(M().label) + '"></label>' +
+        '</div></header>';
+    }
+    return '<header class="top"><div><div class="eyebrow">Laporan les privat · Bulan ke-' + (cur + 1) + ' · ' + esc(M().label) + '</div>' +
+      '<h1>' + esc(S.student) + '</h1>' +
+      '<div class="sub">' + esc(S.grade) + ' · Pengajar: ' + esc(S.tutor) + '</div></div>' +
+      (canEdit ? '<button class="btn" data-act="edit">Edit laporan</button>' : '') + '</header>';
+  }
+
+  function sessView(s) {
+    var p = dateParts(s.date), j = subj(s.subject), dur = minutes(s);
+    var when = [];
+    if (p) when.push(p.wd);
+    if (s.start && s.end) when.push(s.start.replace(':', '.') + '–' + s.end.replace(':', '.') + (dur ? ' (' + dur + ' menit)' : ''));
+    return '<div class="sess"><div class="date">' +
+      (p ? '<div class="n">' + p.day + '</div><div class="m">' + esc(p.mon) + '</div>' : '<div class="n">–</div>') +
+      '</div><div><span class="chip ' + j.cls + '">' + j.name + '</span>' +
+      '<div class="topic">' + (esc(s.topic) || '<span class="muted">Materi belum diisi</span>') + '</div>' +
+      '<div class="when">' + esc(when.join(' · ')) + '</div></div></div>';
+  }
+  function sessEdit(s, wi, si) {
+    var base = 'months.' + cur + '.weeks.' + wi + '.sessions.' + si + '.';
+    return '<div class="sess-edit">' +
+      '<div class="g2">' +
+      '<label class="lab">Tanggal<input class="in" type="date" data-p="' + base + 'date" value="' + esc(s.date) + '"></label>' +
+      '<label class="lab">Mata pelajaran<select class="in" data-p="' + base + 'subject">' +
+      SUBJ.map(function (j) { return '<option value="' + j.id + '"' + (j.id === s.subject ? ' selected' : '') + '>' + j.name + '</option>'; }).join('') +
+      '</select></label></div>' +
+      '<div class="g2">' +
+      '<label class="lab">Mulai<input class="in" type="time" data-p="' + base + 'start" value="' + esc(s.start) + '"></label>' +
+      '<label class="lab">Selesai<input class="in" type="time" data-p="' + base + 'end" value="' + esc(s.end) + '"></label></div>' +
+      '<label class="lab">Materi yang dibahas<input class="in" type="text" data-p="' + base + 'topic" value="' + esc(s.topic) + '" placeholder="Contoh: Persamaan linear"></label>' +
+      '<div><button class="btn ghost sm danger" data-act="del-session" data-w="' + wi + '" data-i="' + si + '">Hapus pertemuan</button></div></div>';
+  }
+  function weeksHTML() {
+    return '<div class="weeks">' + M().weeks.map(function (w, wi) {
+      var n = w.sessions.length;
+      var body = n
+        ? w.sessions.map(function (s, si) { return editing ? sessEdit(s, wi, si) : sessView(s); }).join('')
+        : '<div class="empty">Belum ada pertemuan di minggu ini.</div>';
+      var add = (editing && n < 3)
+        ? '<div class="add-row"><button class="btn ghost sm" data-act="add-session" data-w="' + wi + '">+ Tambah pertemuan</button></div>' : '';
+      return '<article class="week"><div class="week-h"><h3>Minggu ' + (wi + 1) + '</h3><span>' +
+        (editing ? '' : esc(weekRange(w)) + (weekRange(w) ? ' · ' : '')) + n + ' pertemuan</span></div>' + body + add + '</article>';
+    }).join('') + '</div>';
+  }
+
+  function abilitiesHTML() {
+    return '<div class="subjects">' + SUBJ.map(function (j) {
+      var list = M().abilities[j.id] || [];
+      var body;
+      if (editing) {
+        body = '<ul class="abs">' + list.map(function (a, i) {
+          var base = 'months.' + cur + '.abilities.' + j.id + '.' + i + '.';
+          return '<li class="ab-edit"><input class="in" type="text" data-p="' + base + 'text" value="' + esc(a.text) + '" placeholder="Mampu …">' +
+            '<div class="row"><select class="in" data-p="' + base + 'level" aria-label="Tingkat penguasaan">' +
+            LEVELS.map(function (l, k) { return '<option value="' + (k + 1) + '"' + ((a.level || 1) === k + 1 ? ' selected' : '') + '>' + l + '</option>'; }).join('') +
+            '</select><button class="btn ghost sm danger" data-act="del-ab" data-s="' + j.id + '" data-i="' + i + '">Hapus</button></div></li>';
+        }).join('') + '</ul><div style="margin-top:12px"><button class="btn ghost sm" data-act="add-ab" data-s="' + j.id + '">+ Tambah keterangan</button></div>';
+      } else if (!list.length) {
+        body = '<div class="muted">Belum ada keterangan.</div>';
+      } else {
+        body = '<ul class="abs">' + list.map(function (a) {
+          var lv = Math.min(4, Math.max(1, a.level || 1));
+          return '<li><div class="atxt">' + esc(a.text) + '</div><div class="lvl"><span class="dots" role="img" aria-label="Tingkat: ' + LEVELS[lv - 1] + '">' +
+            [1, 2, 3, 4].map(function (n) { return '<i class="' + (n <= lv ? 'on' : '') + '"></i>'; }).join('') + '</span>' + LEVELS[lv - 1] + '</div></li>';
+        }).join('') + '</ul>';
+      }
+      return '<article class="subj ' + j.cls + '"><h3><span class="chip ' + j.cls + '">' + j.name + '</span></h3>' + body + '</article>';
+    }).join('') + '</div>';
+  }
+
+  function noteHTML(key, title) {
+    var f = M().feedback[key];
+    if (editing) {
+      return '<article class="note"><h3>' + title + '</h3>' +
+        '<textarea class="paper" rows="6" data-p="months.' + cur + '.feedback.' + key + '.text" aria-label="' + title + '">' + esc(f.text) + '</textarea>' +
+        '<label class="lab" style="margin-top:12px">Nama<input class="in" type="text" data-p="months.' + cur + '.feedback.' + key + '.name" value="' + esc(f.name) + '"></label></article>';
+    }
+    return '<article class="note"><h3>' + title + '</h3>' +
+      '<div class="paper">' + (esc(f.text) || '<span class="muted">Belum ada tanggapan.</span>') + '</div>' +
+      (f.name ? '<div class="byline">— ' + esc(f.name) + '</div>' : '') + '</article>';
+  }
+
+  function updatedHTML() {
+    var p = dateParts(S.updated);
+    return p ? '<div class="foot">Terakhir diperbarui ' + p.day + ' ' + p.monLong + ' ' + p.year + '</div>' : '';
+  }
+
+  function renderBar() {
+    var bar = document.getElementById('bar');
+    if (!bar) return;
+    if (!editing) { bar.innerHTML = msg ? '<div class="msg">' + esc(msg) + '</div>' : ''; return; }
+    bar.innerHTML = '<div class="msg">' + esc(msg || 'Ubah isi, lalu tekan Simpan. Halaman akan dimuat ulang setelah tersimpan.') + '</div>' +
+      '<button class="btn ghost" data-act="cancel"' + (saving ? ' disabled' : '') + '>Batal</button>' +
+      '<button class="btn" data-act="save"' + (saving ? ' disabled' : '') + '>' + (saving ? 'Menyimpan…' : 'Simpan') + '</button>';
+  }
+
+  function render() {
+    root.innerHTML = '<div class="wrap">' + headerHTML() + navHTML() +
+      '<div class="stats" id="stats">' + statsHTML() + '</div>' +
+      '<section><h2>Jadwal Les</h2><p class="sec-note">Empat minggu dalam sebulan, dua sampai tiga pertemuan setiap minggu.</p>' + weeksHTML() + '</section>' +
+      '<section><h2>Kemampuan per Mata Pelajaran</h2><p class="sec-note">Materi yang sudah dikuasai siswa bulan ini.</p>' + abilitiesHTML() + '</section>' +
+      '<section><h2>Tanggapan</h2><p class="sec-note">Kesan dari siswa dan catatan dari pengajar.</p><div class="fb">' +
+      noteHTML('student', 'Tanggapan Siswa') + noteHTML('tutor', 'Tanggapan Pengajar') + '</div></section>' +
+      updatedHTML() + '<div class="bar" id="bar"></div></div>';
+    renderBar();
+  }
+
+  function setPath(p, v) {
+    var k = p.split('.'), o = S, i;
+    for (i = 0; i < k.length - 1; i++) o = o[k[i]];
+    o[k[k.length - 1]] = v;
+  }
+
+  function onField(e) {
+    var t = e.target, p = t.dataset && t.dataset.p;
+    if (!p || !editing) return;
+    var v = t.value;
+    if (/\.level$/.test(p)) v = +v;
+    setPath(p, v);
+    var st = document.getElementById('stats');
+    if (st) st.innerHTML = statsHTML();
+  }
+  root.addEventListener('input', onField);
+  root.addEventListener('change', onField);
+
+  var snapshot = null;
+  root.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-act]') : null;
+    if (!b || saving) return;
+    var act = b.dataset.act, w = +b.dataset.w, i = +b.dataset.i, s = b.dataset.s;
+    if (act === 'edit') {
+      snapshot = JSON.stringify(S); editing = true; msg = ''; render();
+    } else if (act === 'cancel') {
+      S = JSON.parse(snapshot); cur = Math.min(cur, S.months.length - 1); editing = false; msg = ''; render();
+    } else if (act === 'goto') {
+      cur = +b.dataset.m; render();
+    } else if (act === 'add-month') {
+      var prev = M();
+      S.months.push({
+        label: nextLabel(),
+        weeks: [{ sessions: [] }, { sessions: [] }, { sessions: [] }, { sessions: [] }],
+        abilities: JSON.parse(JSON.stringify(prev.abilities)),
+        feedback: { student: { name: prev.feedback.student.name, text: '' }, tutor: { name: prev.feedback.tutor.name, text: '' } }
+      });
+      cur = S.months.length - 1; render();
+    } else if (act === 'add-session') {
+      if (M().weeks[w].sessions.length < 3) M().weeks[w].sessions.push({ date: '', start: '16:00', end: '17:30', subject: 'mtk', topic: '' });
+      render();
+    } else if (act === 'del-session') {
+      M().weeks[w].sessions.splice(i, 1); render();
+    } else if (act === 'add-ab') {
+      M().abilities[s].push({ text: '', level: 3 }); render();
+    } else if (act === 'del-ab') {
+      M().abilities[s].splice(i, 1); render();
+    } else if (act === 'save') {
+      save();
+    }
+  });
+
+  function today() {
+    var d = new Date(), z = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate());
+  }
+
+  function buildDoc() {
+    var css = document.getElementById('pagestyle'), app = document.getElementById('app');
+    var link = document.getElementById('fontlink'), meta = document.getElementById('vmeta');
+    if (!css || !app || !link || !meta) throw new Error('source_missing');
+    var json = JSON.stringify(S).replace(/</g, '\\u003c');
+    var content = '<title>Laporan Les Privat</title>\n' + meta.outerHTML + '\n' + link.outerHTML + '\n' +
+      '<style id="pagestyle">' + css.textContent + '</style>\n<div id="root"></div>\n' +
+      '<script type="application/json" id="state">' + json + '<\/script>\n' +
+      '<script id="app">' + app.textContent + '<\/script>';
+    return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>' +
+      RESET + '</style></head><body>' + content + '</body></html>';
+  }
+
+  async function save() {
+    saving = true; msg = ''; renderBar();
+    try {
+      S.updated = today();
+      await art.publish(buildDoc());
+    } catch (err) {
+      saving = false;
+      var code = err && err.code;
+      if (code === 'not_writer' || code === 'not_granted' || code === 'not_declared' || code === 'consent_required' || code === 'capability_disabled' || code === 'capability_removed') {
+        canEdit = false; editing = false;
+        S = JSON.parse(snapshot || JSON.stringify(S));
+        cur = Math.min(cur, S.months.length - 1);
+        msg = 'Halaman ini hanya bisa diedit oleh pemiliknya.';
+        render();
+        return;
+      }
+      if (code === 'conflict') msg = 'Ada versi yang lebih baru. Halaman akan dimuat ulang.';
+      else if (code === 'rate_limited') msg = 'Terlalu sering menyimpan. Tunggu sebentar lalu coba lagi.';
+      else if (code === 'too_large') msg = 'Isi terlalu besar untuk disimpan.';
+      else msg = 'Belum tersimpan. Coba lagi sebentar lagi.';
+      renderBar();
+    }
+  }
+
+  render();
+  (async function () {
+    try {
+      if (!(window.claude && window.claude.use)) return;
+      art = await window.claude.use('artifact');
+      var u = await window.claude.use('user');
+      var allowed = true;
+      if (u && typeof u.canEdit === 'function') allowed = (await u.canEdit()) !== false;
+      canEdit = !!art && allowed;
+      if (!editing) render();
+    } catch (e) { /* tetap tampil sebagai halaman baca */ }
+  })();
+})();
+</script></body></html>
