@@ -23,7 +23,7 @@ window.LAPORAN_DATA = {
               "topic": "Sistem Peredaran Darah"
             },
             {
-              "date": "2026-10-28",
+              "date": "2026-10-23",
               "start": "18:00",
               "end": "19:30",
               "subject": "ing",
@@ -71,8 +71,8 @@ window.LAPORAN_DATA = {
           "sessions": [
             {
               "date": "2026-11-14",
-              "start": "19:15",
-              "end": "21:00",
+              "start": "19:31",
+              "end": "21:20",
               "subject": "mtk",
               "topic": "Rasio"
             },
