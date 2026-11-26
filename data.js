@@ -77,11 +77,11 @@ window.LAPORAN_DATA = {
               "topic": "Rasio"
             },
             {
-              "date": "2026-11-26",
-              "start": "16:00",
-              "end": "17:30",
+              "date": "2026-11-21",
+              "start": "16:15",
+              "end": "17:50",
               "subject": "ing",
-              "topic": "Kosakata dan percakapan sehari-hari"
+              "topic": "Simple Future Tense"
             }
           ]
         }
